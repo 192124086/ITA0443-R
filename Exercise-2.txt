@@ -1,0 +1,173 @@
+ITA0443-Statistics with R programming
+Name:L.Uthra
+Reg No:192124086
+                                           EXERCISE-2
+1)Perform Matrix Addition & Subtraction in R
+Program:
+num1=45
+num2=20
+num1+num2
+num1-num2
+Output:
+> num1+num2
+[1] 65
+> num1-num2
+[1] 25
+
+2) Perform Scalar multiplication and matrix multiplication  in R.
+Program:
+A <- matrix(1:4,2,byrow = TRUE)
+c <- matrix(rep(4,3), 2)
+A * c
+Output:
+     [,1] [,2]
+[1,]    4    8
+[2,]   12   16
+m <- matrix(1:6, nrow=2)
+n <- matrix(6:11, nrow=2)
+m*n
+     [,1] [,2] [,3]
+[1,]    6   24   50
+[2,]   14   36   66
+
+3) Find Transpose of matrix in R.
+Program:
+M <- matrix(1:4, nrow = 2)
+M
+t <- t(M)
+print(t)
+Output:
+> M
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+> t <- t(M)
+> print(t)
+     [,1] [,2]
+[1,]    1    2
+[2,]    3    4
+
+4) Perform the operation of combining matrices in R using cbind() and rbind() functions.
+Program:
+B = matrix(c(1, 2,3), nrow = 1, ncol = 3)
+C = matrix(c(4, 5, 6), nrow = 1, ncol = 3)
+print (cbind(B, C))
+rbind(B,C)
+Output:
+> print (cbind(B, C))
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    2    3    4    5    6
+> rbind(B,C)
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+
+5) Deconstruct a matrix in R.
+Program:
+B <-matrix(c(4,3,6,2,1,8),nrow=3,ncol=2) 
+c(B)
+Output:
+> c(B)
+[1] 4 3 6 2 1 8
+6) Perform array manipulation in R .
+Program:
+vector1 <- c(1, 2, 3)
+vector2 <- c(10, 15, 13, 11, 16, 12)
+result <- array(c(vector1, vector2), dim = c(3,3))
+result
+Output:
+> result
+     [,1] [,2] [,3]
+[1,]    1   10   11
+[2,]    2   15   16
+[3,]    3   13   12
+
+7) Perform calculations across array elements in an array using the apply() function.
+Program:
+matrix1<- matrix(C<-(1:10),nrow=3, ncol=10)
+matrix1
+print("mean across columns:")
+apply( matrix1, 2, mean)
+Output:
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+[1,]    1    4    7   10    3    6    9    2
+[2,]    2    5    8    1    4    7   10    3
+[3,]    3    6    9    2    5    8    1    4
+     [,9] [,10]
+[1,]    5     8
+[2,]    6     9
+[3,]    7    10
+> print("mean across columns:")
+[1] "mean across columns:"
+> apply( matrix1, 2, mean)
+ [1] 2.000000 5.000000 8.000000 4.333333
+ [5] 4.000000 7.000000 6.666667 3.000000
+ [9] 6.000000 9.000000
+8) Demonstrate Factor data structure in R.
+Program:
+fact=factor(c("Red","Blue","Green","Yellow","Orange","Pink","Purple"))
+print(fact)
+Output:
+> print(fact)
+[1] Red    Blue   Green  Yellow Orange Pink   Purple
+Levels: Blue Green Orange Pink Purple Red Yellow
+
+9) Create a data frame and print the structure of the data frame in R.
+Program:
+Name <- c("Ram", "Raj", "Sam", "Sandy", "Rahul")
+Age <- c(22,19,17,18,21)
+df <- data.frame(Name, Age)
+print (df)
+print(str(df))
+Output:
+> print (df)
+   Name Age
+1   Ram  22
+2   Raj  19
+3   Sam  17
+4 Sandy  18
+5 Rahul  21
+> print(str(df))
+'data.frame':	5 obs. of  2 variables:
+ $ Name: chr  "Ram" "Raj" "Sam" "Sandy" ...
+ $ Age :
+Null
+
+10) Demonstrate the creation of S3 class in R.
+Program:
+
+x<-c("Ram","Rahul","Sai")
+class(x)
+Output:
+> class(x)
+[1] "character"
+
+11) Demonstrate the creation of S4 class in R.
+Program:
+setClass("Employee_Info", slots=list(name="character", age="numeric", role="character"))
+employee1 <- new("Employee_Info", name = "rahul", age = 21, role = "HR")
+employee1
+Output:
+An object of class "Employee_Info"
+Slot "name":
+[1] "rahul"
+
+Slot "age":
+[1] 21
+
+Slot "role":
+[1] "HR"
+
+12) Demonstrate the creation of Reference class in R by defining a class called students with fields – Name, Age , GPA. Also illustrate how the fields of the object can be accessed using the $ operator. Modify the Name field by reassigning the name to Paul.
+Program:
+student=setRefClass("student",fields = list(name="character",age="numeric",GPA="numeric"))
+student1=student(name="abc",age=18,GPA=9)
+print("Class :")
+print(student1)
+print("Accessing with $ operator :")
+print(student1$name)
+print("Modifying name field :")
+student1$name="paul"
+print(student1)
+
+

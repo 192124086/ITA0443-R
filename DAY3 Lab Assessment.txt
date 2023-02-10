@@ -1,0 +1,423 @@
+SAVEETHA SCHOOL OF ENGINEERING
+SAVEETHA INSTITUTE OF MEDICAL AND TECHNICAL SCIENCES
+ITA 0443 - STATISTICS WITH R PROGRAMMING FOR REAL TIME PROBLEM
+DAY 3 – LAB ASSESSMENT
+Reg No:192124086
+Name:L.uthra
+
+1.	(i) Write a function in R programming to print generate Fibonacci sequence using  
+Recursion in R.
+Program:
+recursion<-function(n){
+  if(n<=1){
+    return(n)
+  }
+  else{
+    return(recursion(n-1)+recursion(n-2))
+  }
+}
+nterms=as.integer(readline(prompt="How many terms:"))
+for(i in 0:(nterms-1)){
+  print(recursion(i))
+}
+Output:
+Enter a number:10
+The Sum is 55
+
+(ii) Find sum of natural numbers up-to 10, without formula using loop statement.
+Program:
+num=as.integer(readline(prompt="Enter a number:"))
+sum=0
+  while(num>0){
+    sum=sum+num
+    num=num-1
+  }
+cat("The Sum is",sum)
+Output:
+Enter a number:10
+> cat("The Sum is",sum)
+The Sum is 55
+
+(iii) create a vector 1:10 and Find a square of each number and store that in a
+separate list.
+Program:
+vector1<-c(1:10)
+f<-vector1^2
+as.list(f)
+Output:
+[[1]]
+[1] 1
+
+[[2]]
+[1] 4
+
+[[3]]
+[1] 9
+
+[[4]]
+[1] 16
+
+[[5]]
+[1] 25
+
+[[6]]
+[1] 36
+
+[[7]]
+[1] 49
+
+[[8]]
+[1] 64
+
+[[9]]
+[1] 81
+
+[[10]]
+[1] 100
+
+
+2.    (motor trend car road test) comprises fuel consumption, performance and  10 aspects of automobile
+design for 32 automobiles. It comes pre-installed  with  package in R.
+ (i)Find the dimension of the dataset
+Program:
+dim(mtcars)
+Output:
+> dim(mtcars)
+[1] 32 11
+
+(ii)Give the statistical summary of the features.
+Program:
+summary(mtcars)
+Output:
+   mpg          cyl           disp    
+ Min.   :10   Min.   :4.0   Min.   : 71  
+ 1st Qu.:15   1st Qu.:4.0   1st Qu.:121  
+ Median :19   Median :6.0   Median :196  
+ Mean   :20   Mean   :6.2   Mean   :231  
+ 3rd Qu.:23   3rd Qu.:8.0   3rd Qu.:326  
+ Max.   :34   Max.   :8.0   Max.   :472  
+       hp           drat           wt     
+ Min.   : 52   Min.   :2.8   Min.   :1.5  
+ 1st Qu.: 96   1st Qu.:3.1   1st Qu.:2.6  
+ Median :123   Median :3.7   Median :3.3  
+ Mean   :147   Mean   :3.6   Mean   :3.2  
+ 3rd Qu.:180   3rd Qu.:3.9   3rd Qu.:3.6  
+ Max.   :335   Max.   :4.9   Max.   :5.4  
+      qsec            vs      
+ Min.   :14.5   Min.   :0.00  
+ 1st Qu.:16.9   1st Qu.:0.00  
+ Median :17.7   Median :0.00  
+ Mean   :17.8   Mean   :0.44  
+ 3rd Qu.:18.9   3rd Qu.:1.00  
+ Max.   :22.9   Max.   :1.00  
+       am            gear          carb    
+ Min.   :0.00   Min.   :3.0   Min.   :1.0  
+ 1st Qu.:0.00   1st Qu.:3.0   1st Qu.:2.0  
+ Median :0.00   Median :4.0   Median :2.0  
+ Mean   :0.41   Mean   :3.7   Mean   :2.8  
+ 3rd Qu.:1.00   3rd Qu.:4.0   3rd Qu.:4.0  
+ Max.   :1.00   Max.   :5.0   Max.   :8.0
+
+(iii)Print the categorical features in Dataset
+Program:
+cat_features<-sapply(mtcars,is.factor)
+cat_features<-names(cat_features[cat_features==TRUE])
+cat_features
+Output:
+character(0)
+
+(iv)Find the average weight(wt) grouped by Engine shape(vs)
+Program:
+library(dplyr)
+group_by(mtcars,vs)%>%
+  summarize(avg_wt=mean(wt))
+Output:
+  vs avg_wt
+  <dbl>  <dbl>
+1     0   3.69
+2     1   2.61
+
+(v)Find the largest and smallest value of the variable weight with respect to Engine shape  
+Program:
+library(dplyr)
+group_by(mtcars,vs)%>%
+  summarize(min_wt=min(wt),max_wt=max(wt))
+Output:
+  vs min_wt max_wt
+  <dbl>  <dbl>  <dbl>
+1     0   2.14   5.42
+2     1   1.51   3.46
+
+3.Use ggplot package to plot below EDA questions label the plot accordingly
+(i)Create weight(wt) vs displacement(disp) scatter plot factor by  Engine Shape(vs)
+Program:
+library(ggplot2)
+ggplot(mtcars,aes(x=disp,y=wt,color=vs))+
+  geom_point()+
+  xlab("Displacement(disp)")+
+  ylab("Weight(wt)")+
+  ggtitle("Weight vs.Dispalcement by Engine shape")
+
+http://127.0.0.1:34377/graphics/a6077dc1-d2ab-4c1c-b753-062c1262abe0.png
+
+
+ (ii) Create horsepower(hp) vs mileage (mgp) scatter plot factor by  Engine Shape(vs)
+Program:
+ggplot(mtcars,aes(x=mpg,y=hp,color=vs))+
+  geom_point()+
+  xlab("Mileage(mpg)")+
+  ylab("Horsepower(hp)")+
+  ggtitle("Horsepower vs.Mileage by Engine shape")
+Output:
+http://127.0.0.1:34377/graphics/75ccefeb-ce36-45ca-84f9-b02a2e77a17b.png
+
+(iv)In above plot , Separate columns according to cylinders(cyl) size
+Program:
+ggplot(mtcars,aes(x=mpg,y=hp,color=vs,shape=as.factor(cyl)))+
+  geom_point()+
+  xlab("Mileage(mpg)")+
+  ylab("Horsepower(hp)")+
+  ggtitle("Horsepower vs.Mileage by Engine shape and Cylinder Size")
+Output:
+http://127.0.0.1:34377/graphics/a40ba719-4cb9-4744-acba-ae380c0cde3f.png
+
+(v) Create histogram plot for horsepower (hp) with bin-width size of 5
+Program:
+ggplot(mtcars,aes(x=hp))+
+  geom_histogram(bunwidth=5)+
+  xlab("Horsepower(hp)")+
+  ylab("Frequency")+
+  ggtitle("Histogram of Horsepower with Bin-width of 5")
+
+  4. Performing Logistic regression on dataset to predict the cars Engine shape(vs) .
+(i)Do the EDA analysis and find the features which is impact the Engine shape and use this for model.
+Program:
+correlation_matrix <- cor(mtcars[, c(2:11)])
+
+library(corrplot)
+corrplot(correlation_matrix, type = "upper", method = "color")
+
+library(ggplot2)
+for(i in 2:11){
+  ggplot(mtcars, aes_string(x = "vs", y = names(motor_trend_car_road_test)[i])) +
+    geom_boxplot() +
+    ggtitle(paste0("Boxplot of ", names(motor_trend_car_road_test)[i], " and vs"))
+}
+for(i in 2:11){
+  ggplot(mtcars, aes_string(x = names(motor_trend_car_road_test)[i])) +
+    geom_density() +
+    ggtitle(paste0("Density Plot of ", names(motor_trend_car_road_test)[i]))
+}
+
+(ii) Split the data set randomly with 80:20 ration to create train and test dataset and create
+logistic model
+Program:
+library(caret)
+set.seed(123)
+index <- createDataPartition(motor_trend_car_road_test$vs, p = 0.8, list = FALSE)
+train_data <- motor_trend_car_road_test[index,]
+test_data <- motor_trend_car_road_test[-index,]
+
+library(glmnet)
+model <- glmnet(as.matrix(train_data[, c(3:11)]), as.factor(train_data[, 2]), family = "binomial")
+
+
+(iii)Create the Confusion matrix among prediction and test data.
+Program:
+predictions <- predict(model, s = 0.01, newx = as.matrix(test_data[, c(3:11)]), type = "class")¬¬¬¬
+library(caret)
+confusionMatrix(predictions, test_data[, 2])
+
+5. (I) Write R Program to create 15 x15 matrix filled with random numbers between -10 to 10, numbers can repeat. set random seed value to 328
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mat
+Output:
+> mat
+      [,1]  [,2]  [,3]  [,4]  [,5] [,6] [,7]
+ [1,]  4.7  8.60 -3.48 -0.91  1.40 -9.1  7.6
+ [2,]  5.6  6.41  3.44  9.03  3.11 -2.5 -5.6
+ [3,] -6.1 -5.18  6.44 -8.46 -0.77 -3.9 -6.9
+ [4,]  6.4  7.84 -8.75  1.42 -6.02  6.2  1.2
+ [5,] -2.5  9.01 -0.32  3.73  4.43 -1.6  6.8
+ [6,]  9.8  1.30 -9.11 -5.15  7.28 -9.9 -3.2
+ [7,] -5.7 -9.06 -7.80 -6.86 -9.50  6.3  4.7
+ [8,]  4.6  0.69 -8.54 -8.86 -3.45 -4.4  4.7
+ [9,]  8.8  9.70  8.27  8.56 -3.74 -3.6  7.3
+[10,] -2.0  7.38 -5.12 -3.18 -3.80 -9.4 -5.2
+[11,]  5.4 -7.04  7.76  7.49  6.61 -9.6 -3.1
+[12,] -4.0  2.66  9.93  8.38 -4.90  8.6 -5.2
+[13,] -9.1  8.95  9.78 -7.19  5.72  4.5  7.8
+[14,]  3.4  5.19  2.84 -9.36  4.29  8.7 -6.1
+[15,]  1.2 -3.34  5.96 -3.10 -1.20 -9.7  7.1
+        [,8]  [,9]  [,10]  [,11] [,12] [,13]
+ [1,]  6.323  9.17  1.279  -6.90  3.64 -2.04
+ [2,]  9.983 -2.91  6.866  -1.51  6.38  9.60
+ [3,] -1.303  9.37  6.169   9.58 -4.94 -8.49
+ [4,] -9.191 -8.13  8.367   2.99  3.68 -3.45
+ [5,] -8.377 -4.91  1.507  -2.29 -1.47 -7.10
+ [6,]  0.745  7.59  4.005  -0.59  4.25  3.06
+ [7,]  1.279  0.34 -4.363   1.53 -1.08 -9.80
+ [8,]  4.623 -8.38 -6.079   9.01 -4.87 -6.85
+ [9,]  1.830 -6.83  8.421   9.71 -6.00 -3.92
+[10,]  9.452  8.07  6.541  -7.23 -7.73 -1.23
+[11,]  5.842 -5.84  2.292   8.82 -6.26 -9.23
+[12,] -8.785 -9.68  2.284   0.36 -0.56 -6.11
+[13,]  0.046 -3.62  5.878  -9.99  8.99 -0.29
+[14,]  8.916 -3.07  0.065   5.88  6.60  7.15
+[15,]  5.188  1.11  4.060   3.95  1.13 -6.32
+      [,14] [,15]
+ [1,] -5.33 -5.80
+ [2,]  9.57  7.93
+ [3,]  4.58  4.10
+ [4,] -4.22 -8.56
+ [5,]  3.25 -0.18
+ [6,]  7.54  2.47
+ [7,] -6.40 -4.76
+ [8,]  0.61  6.62
+ [9,]  3.71 -6.27
+[10,]  5.75 -8.54
+[11,]  2.87 -6.17
+[12,]  1.92 -5.79
+[13,]  9.77  0.53
+[14,]  0.43  5.53
+[15,]  3.85  7.69
+
+    (ii)Write R Program to display Lower Diagonal and upper Diagonal matrix  
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mat
+lower_diag<-diag(mat)
+upper_diag<-diag(t(mat))
+cat("Lower diagonal:",lower_diag,"\n")
+cat("Upper diagonal:",upper_diag)
+Output:
+Lower diagonal: 4.7 6.4 6.4 1.4 4.4 -9.9 4.7 4.6 -6.8 6.5 8.8 -0.56 -0.29 0.43 7.7 
+Upper diagonal: 4.7 6.4 6.4 1.4 4.4 -9.9 4.7 4.6 -6.8 6.5 8.8 -0.56 -0.29 0.43 7.7
+
+   (iii)Write R Program to count 0's in the matrix and check the matrix is sparse matrix or not
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mat
+count_zero<-sum(mat==0)
+if(count_zero/(15*15)>0.5){
+  cat("Matrix is sparse\n")
+}else{
+  cat("Matrix is not sparse")
+}
+cat("Number of zeros:",count_zero)
+Output:
+    Number of zeros: 0
+
+   (iv) Write R code to remove outliers. Here the outliers are negative numbers. replace the negative values with positive values
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mat[mat<0]<-abs(mat[mat<0])
+mat
+
+Output:
+[,1] [,2] [,3] [,4] [,5] [,6] [,7]
+ [1,]  4.7 8.60 3.48 0.91 1.40  9.1  7.6
+ [2,]  5.6 6.41 3.44 9.03 3.11  2.5  5.6
+ [3,]  6.1 5.18 6.44 8.46 0.77  3.9  6.9
+ [4,]  6.4 7.84 8.75 1.42 6.02  6.2  1.2
+ [5,]  2.5 9.01 0.32 3.73 4.43  1.6  6.8
+ [6,]  9.8 1.30 9.11 5.15 7.28  9.9  3.2
+ [7,]  5.7 9.06 7.80 6.86 9.50  6.3  4.7
+ [8,]  4.6 0.69 8.54 8.86 3.45  4.4  4.7
+ [9,]  8.8 9.70 8.27 8.56 3.74  3.6  7.3
+[10,]  2.0 7.38 5.12 3.18 3.80  9.4  5.2
+[11,]  5.4 7.04 7.76 7.49 6.61  9.6  3.1
+[12,]  4.0 2.66 9.93 8.38 4.90  8.6  5.2
+[13,]  9.1 8.95 9.78 7.19 5.72  4.5  7.8
+[14,]  3.4 5.19 2.84 9.36 4.29  8.7  6.1
+[15,]  1.2 3.34 5.96 3.10 1.20  9.7  7.1
+        [,8] [,9] [,10] [,11] [,12] [,13]
+ [1,]  6.323 9.17 1.279  6.90  3.64  2.04
+ [2,]  9.983 2.91 6.866  1.51  6.38  9.60
+ [3,]  1.303 9.37 6.169  9.58  4.94  8.49
+ [4,]  9.191 8.13 8.367  2.99  3.68  3.45
+ [5,]  8.377 4.91 1.507  2.29  1.47  7.10
+ [6,]  0.745 7.59 4.005  0.59  4.25  3.06
+ [7,]  1.279 0.34 4.363  1.53  1.08  9.80
+ [8,]  4.623 8.38 6.079  9.01  4.87  6.85
+ [9,]  1.830 6.83 8.421  9.71  6.00  3.92
+[10,]  9.452 8.07 6.541  7.23  7.73  1.23
+[11,]  5.842 5.84 2.292  8.82  6.26  9.23
+[12,]  8.785 9.68 2.284  0.36  0.56  6.11
+[13,]  0.046 3.62 5.878  9.99  8.99  0.29
+[14,]  8.916 3.07 0.065  5.88  6.60  7.15
+[15,]  5.188 1.11 4.060  3.95  1.13  6.32
+      [,14] [,15]
+ [1,]  5.33  5.80
+ [2,]  9.57  7.93
+ [3,]  4.58  4.10
+ [4,]  4.22  8.56
+ [5,]  3.25  0.18
+ [6,]  7.54  2.47
+ [7,]  6.40  4.76
+ [8,]  0.61  6.62
+ [9,]  3.71  6.27
+[10,]  5.75  8.54
+[11,]  2.87  6.17
+[12,]  1.92  5.79
+[13,]  9.77  0.53
+[14,]  0.43  5.53
+[15,]  3.85  7.69
+
+
+> 
+
+
+   (v) Find the mean median and mode of the values corresponding to column
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mean_col<-apply(mat,2,mean)
+median_col<-apply(mat,2,median)
+mode_col<-sapply(1:15,function(x){
+  col<-mat[,x]
+  names(sort(-table(col)))[1]
+})
+cat("mean of columns:",mean_col,"\n")
+cat("Median of columns:",median_col,"\n")
+cat("Mode of columns:",mode_col)
+Output:
+> cat("mean of columns:",mean_col,"\n")
+mean of columns: 1.4 2.9 0.75 -0.96 -0.036 -2 0.78 1.8 -1.2 3.2 1.6 0.12 -3 2.5 -0.75 
+> cat("Median of columns:",median_col,"\n")
+Median of columns: 3.4 5.2 2.8 -3.1 -0.77 -3.6 1.2 1.8 -3.1 4 1.5 -0.56 -3.9 3.3 -0.18 
+> cat("Mode of columns:",mode_col)
+Mode of columns: -9.0996002079919 -9.05502940062433 -9.11303135100752 -9.35796259902418 -9.50293699745089 -9.87788365688175 -6.90784868318588 -9.1905095661059 -9.68104213476181 -6.07939875219017 -9.9872216116637 -7.72709875833243 -9.79990419466048 -6.39835279434919 -8.5633430024609
+
+   (vi)Find the mean median and mode of the values corresponding to row
+Program:
+set.seed(328)
+mat<-matrix(runif(225,min=-10,max=10),nrow=15,ncol=15)
+options(digits=2)
+mean_row<-apply(mat,1,mean)
+median_row<-apply(mat,1,median)
+mode_row<-sapply(1:15,function(x){
+  row<-mat[x,]
+  names(sort(-table(row)))[1]
+})
+cat("mean of rows:",mean_row,"\n")
+cat("Median of rows:",median_row,"\n")
+cat("Mode of rows:",mode_row)
+        Output:
+         > cat("mean of rows:",mean_row,"\n")
+mean of rows: 0.61 4.4 -0.39 -0.68 -0.00044 1.3 -3.4 -1.4 2.4 -1.1 -0.0092 -0.73 2.1 2.7 1.2 
+> cat("Median of rows:",median_row,"\n")
+Median of rows: 1.3 6.4 -1.3 1.2 -0.32 2.5 -4.8 -3.4 3.7 -3.2 2.3 -0.56 4.5 4.3 1.2 
+> cat("Mode of rows:",mode_row)
+Mode of rows: -9.07382992096245 -5.60909159947187 -8.49425952415913 -9.1905095661059 -8.37721239309758 -9.87788365688175 -9.79990419466048 -8.86278214398772 -6.82884555775672 -9.43665460217744 -9.55808157566935 -9.68104213476181 -9.9872216116637 -9.35796259902418 -9.72716185729951
+

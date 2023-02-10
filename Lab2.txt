@@ -1,0 +1,1039 @@
+https://github.com/192124086/ITA0443-R
+Name:L.Uthra
+RegNo:192124086
+SAVEETHA SCHOOL OF ENGINEERING
+SAVEETHA INSTITUTE OF MEDICAL AND TECHNICAL SCIENCES
+ITA 0443 - STATISTICS WITH R PROGRAMMING FOR REAL TIME PROBLEM
+DAY 2 – LAB EXERCISES
+IMPLEMENTATION OF VECTOR RECYCLING, APPLY FAMILY & RECURSION
+ 
+1. Demonstrate Vector Recycling in R.
+Program:
+v1<-c(1,2,3,4)
+v2<-c(2,3)
+print(v1+v2)
+Output:
+> print(v1+v2)
+[1] 3 5 5 7
+2. Demonstrate the usage of apply function in R
+Program:
+matrix1<- matrix(C<-(1:10),nrow=3, ncol=10)
+matrix1
+print("mean across columns:")
+apply( matrix1, 2, mean)
+Output:
+> apply( matrix1, 2, mean)
+[1] 2.000000 5.000000 8.000000
+[4] 4.333333 4.000000 7.000000
+[7] 6.666667 3.000000 6.000000
+[10] 9.000000
+3. Demonstrate the usage of lapply function in R
+Program:
+data <- data.frame(a = c(2,6,2),b = c(2, 6, 2),c = c(2, 6, 2))
+print(data)
+print(lapply(data,sum))
+Output:
+> print(data)
+  a b c
+1 2 2 2
+2 6 6 6
+3 2 2 2
+$a
+[1] 10
+ 
+$b
+[1] 10
+ 
+$c
+[1] 10
+4. Demonstrate the usage of sapply function in R
+Program:
+data <- data.frame(a = c(2, 4, 2),b = c(2, 4, 2),c = c(2, 4, 2))
+print(data)
+print(sapply(data,sum))
+Output:
+> print(data)
+  a b c
+1 2 2 2
+2 4 4 4
+3 2 2 2
+> print(sapply(data,sum))
+a b c
+8 8 8
+5. Demonstrate the usage of tapply function in R
+Program:
+vec<- data.frame(a = c(1,2,3),b = c(4, 5, 6),c = c(7,8,9))
+print(vec)
+print(tapply(vec$c,vec$a,mean))
+Output:
+> print(vec)
+  a b c
+1 1 4 7
+2 2 5 8
+3 3 6 9
+> print(tapply(vec$c,vec$a,mean))
+1 2 3
+7 8 9
+6. Demonstrate the usage of mapply function in R
+Program:
+v1 <- c(2,5,6,3,9)
+v2 <- c(1,4,3,2,5)
+print(mapply(max, v1, v2))
+Output:
+> print(mapply(max, v1, v2))
+[1] 2 5 6 3 9
+CREATION AND MANIPULATION OF DATAFRAMES IN R
+ 
+Exercise 1
+Consider two vectors: x=seq(1,43,along.with=Id)
+y=seq(-20,0,along.with=Id)
+Create a data frame ‘df’ as shown below.
+>df
+Id Letter x y
+1 1 a 1.000000 -20.000000
+2 1 b 4.818182 -18.181818
+3 1 c 8.636364 -16.363636
+4 2 a 12.454545 -14.545455
+5 2 b 16.272727 -12.727273
+6 2 c 20.090909 -10.909091
+7 3 a 23.909091 -9.090909
+8 3 b 27.727273 -7.272727
+9 3 c 31.545455 -5.454545
+10 4 a 35.363636 -3.636364
+11 4 b 39.181818 -1.818182
+12 4 c 43.000000 0.000000
+Program:
+Id<-c(1,1,1,2,2,2,3,3,3,4,4,4)
+x=seq(1,43,along.with=Id)
+y=seq(-20,0,along.with=Id)
+Letter=c("a","b","c","a","b","c","a","b","c","a","b","c")
+df<-data.frame(Id,Letter,x,y)
+df
+Exercise 2
+Using the data frame ‘df’ in Exercise1, Construct the following data frame. Id x.ay.ax.by.bx.cy.c 1 1 1.00000 -20.000000 4.818182 -18.181818 8.636364 -16.363636 4 2 12.45455 -14.545455 16.272727 -12.727273 20.090909 -10.909091 7 3 23.90909 -9.090909 27.727273 -7.272727 31.545455 -5.454545 10 4 35.36364 -3.636364 39.181818 -1.818182 43.000000 0.000000
+Program:
+ 
+Exercise 3
+Create two data frame df1 and df2:
+ 
+> df1
+Id Age
+1  1 14
+2  2 12
+3  3 15
+4  4 10
+> df2
+Id Sex Code
+1  1 F a
+2  2 M b
+3  3 M c
+4  4 F d
+ 
+From df1 and df2 create M:
+ 
+>M
+Id Age Sex Code
+1  1 14 F a
+2  2 12 M b
+3  3 15 M c 4 4 10 F d
+Program:
+id<-c(1,2,3,4)
+age<-c(14,12,15,10)
+sex<-c('F','M','M','F')
+code<-c("a",'b','c','d')
+df1<-data.frame(id,age)
+df2<-data.frame(id,sex,code)
+df1
+df2
+m<-merge.data.frame(df1,df2)
+m
+Output:
+id age sex code
+1  1  14   F	a
+2  2  12   M	b
+3  3  15   M	c
+4  4  10   F	d
+Exercise 4
+Create a data frame df3:
+ 
+> df3 id2 score 1 4 100
+2  3 98
+3  2 94
+4  1 99
+ 
+From M (used in Exercise-3) and df3 create N:
+ 
+Id Age Sex Code score
+1  1 14 F a 99
+2  2 12 M b 94
+3  3 15 M c 98 4 4 10 F d 100
+Program:
+id<-c(1,2,3,4)
+age<-c(14,12,15,10)
+sex<-c('F','M','M','F')
+code<-c("a",'b','c','d')
+id2<-c(4,3,2,1)
+scores<-c(100,98,94,99)
+df1<-data.frame(id,age)
+df2<-data.frame(id,sex,code)
+df3<-data.frame(id2,scores)
+df3
+m<-merge.data.frame(df1,df2)
+m
+m$score=rev(scores)
+n<-m
+print(n)
+Output:
+  id age sex code score
+1  1  14   F	a	99
+2  2  12   M	b	94
+3  3  15   M	c	98
+4  4  10   F	d   100
+ 
+Exercise 5
+Consider the previous one data frame N:
+1) Remove the variables Sex and Code
+ 2) From N, create a data frame:
+ 
+values ind
+1 	1 Id
+2 	2 Id
+3 	3 Id
+4 	4 Id
+5 	14 Age
+6 	12 Age
+7 	15 Age
+8 	10 Age
+9 	99 score
+10  94 score
+11  98 score
+12  100 score
+Program:
+library(reshape)
+id=c(1:4)
+age=c(14,12,15,10)
+sex=c("F","M","M","F")
+code=c("a","b","c","d")
+df1=data.frame(id,age)
+df2=data.frame(id,sex,code)
+df2=merge(df1,df2)
+score=c(100,98,94,99)
+id=c(4:1)
+df3=data.frame(id,score)
+df3=merge(df2,df3)
+df3$sex=NULL
+df3$code=NULL
+print(melt.data.frame(df3))
+Output:
+   variable value
+1    	id 	1
+2    	id 	2
+3    	id 	3
+4    	id 	4
+5   	age	14
+6   	age	12
+7   	age	15
+8   	age	10
+9 	score	99
+10	score	94
+11	score	98
+12	score   100
+ 
+Exercise 6
+For this exercise, we’ll use the (built-in) dataset trees.
+a)  Make sure the object is a data frame, if not change it to a data frame.
+b)  Create a new data frame A:
+ 
+>A
+Girth Height Volume
+mean_tree 13.24839 76 30.17097
+min_tree 8.30000 63 10.20000
+max_tree 20.60000 87 77.00000
+sum_tree 410.70000 2356 935.30000
+Program:
+df<-trees
+mean_tree=apply(df,2,mean)
+min_tree=apply(df,2,min)
+max_tree=apply(df,2,max)
+sum_tree=apply(df,2,sum)
+A<-data.frame(mean_tree,min_tree,max_tree,sum_tree)
+B<-data.frame(t(A))
+B
+Output:
+          	Girth Height	Volume
+mean_tree  13.24839 	76  30.17097
+min_tree	8.30000 	63  10.20000
+max_tree   20.60000 	87  77.00000
+sum_tree  410.70000   2356 935.30000
+ 
+Exercise 7
+Consider the data frame A:
+1)Order the entire data frame by the first column.
+2)Rename the row names as follows: mean, min, max, tree
+Program:
+df<-trees
+mean_tree=apply(df,2,mean)
+min_tree=apply(df,2,min)
+max_tree=apply(df,2,max)
+sum_tree=apply(df,2,sum)
+A<-data.frame(mean_tree,min_tree,max_tree,sum_tree)
+B<-data.frame(t(A))
+B
+row.names(B)<-c("mean","min","max","sum")
+B
+Output:
+  Girth Height	Volume
+mean  13.24839 	76  30.17097
+min	8.30000 	63  10.20000
+max   20.60000 	87  77.00000
+sum  410.70000   2356 935.30000
+ 
+Exercise 8
+Create an empty data frame with column types:
+>df
+IntsLogicals Doubles Characters
+(or 0-length row.names)
+Program:
+df1 <- data.frame(Doubles=double(),
+              	Integers=integer(),
+              	Factors=factor(),
+              	Logicals=logical(),
+              	Characters=character(),
+              	stringsAsFactors=FALSE)
+print(df1)
+Output:
+[1] Doubles	Integers   Factors  
+[4] Logicals   Characters
+<0 rows> (or 0-length row.names)
+ 
+ 
+Exercise 9
+Create a data frame XY
+ 
+X=c(1,2,3,1,4,5,2)
+Y=c(0,3,2,0,5,9,3)
+> XY
+X Y
+1  1 0
+2  2 3
+3  3 2
+4  1 0
+5  4 5
+6  5 9
+7  2 3
+ 
+1)    look at duplicated elements using a provided R function.
+2)    keep only the unique lines on XY using a provided R function.
+Program:
+x=c(1,2,3,1,4,5,2)
+y=c(0,3,2,0,5,9,3)
+df=data.frame(x,y)
+print("dataframe :")
+print(df)
+print("unique :")
+print(unique(df))
+print("Duplicated :")
+print(duplicated(df))
+Output:
+[1] "unique :"
+> print(unique(df))
+  x y
+1 1 0
+2 2 3
+3 3 2
+5 4 5
+6 5 9
+> print("Duplicated :")
+[1] "Duplicated :"
+> print(duplicated(df))
+[1] FALSE FALSE FALSE  TRUE FALSE FALSE
+[7]  TRUE
+ 
+Exercise 10
+Use the (built-in) dataset Titanic.
+a)  Make sure the object is a data frame, if not change it to a data frame.
+b)  Define a data frame with value 1st in Class variable, and value NO in Survived variable and variables Sex, Age and Freq.
+ 
+Sex Age Freq
+1 Male Child 0
+5 Female Child 0
+9 Male Adult 118
+13 Female Adult 4
+Program:
+a=subset(data.frame(Titanic), subset = Class=='1st' & Survived=='No',select=c(Sex,Age,Freq))
+print(a)
+Output:
+	Sex   Age Freq
+1	Male Child	0
+5  Female Child	0
+9	Male Adult  118
+13 Female Adult	4
+ 
+MERGING DATAFRAMES
+Exercise 11 a)
+Create the following dataframes to merge:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+The dataframes, buildingsand datahave a common key variable called, “location”.
+Use the merge() function to merge the two dataframes by “location”, into a new dataframe,“buildingStats”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+buildings
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+buildingStats<-merge.data.frame(buildings,data,by="location")
+buildingStats
+Output:
+location      name survey efficiency
+1        1 building1  	1     	51
+2        1 building1  	2     	58
+3        2 building2  	1     	64
+4        2 building2  	2      	7
+5        3 building3  	1     	70
+6        3 building3  	2     	80
+Exercise 11 b)
+Give the dataframes different key variable names:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1","building2", "building3"))
+data <- data.frame(survey=c(1,1,1,2,2,2), LocationID=c(1,2,3,2,3,1), efficiency=c(51,64,70,71,80,58))
+The dataframes, buildings and data  have corresponding variables called, location, and LocationID. Use the merge() function to merge the columns of the two dataframes by the corresponding variables.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),LocationID=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+z<-merge.data.frame(buildings,data,by="location")
+z
+Output:
+Error in fix.by(by.y, y) : 'by' must specify a uniquely valid column
+ 
+DIFFERENT TYPES OF MERGE IN R
+Exercise 12a)InnerJoin:
+The R merge() function automatically joins the frames by common variable names. In that case, demonstrate how you would perform the merge in Exercise 11a without specifying the key variable.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+z<-merge(buildings,data)
+z
+Output:
+  location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2      2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 12b)OuterJoin:
+Merge the two dataframes from Exercise 11a. Use the “all=” parameter in the merge() function to return all records from both tables. Also, merge with the key variable, “location”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,by="location",all=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3      1     	70
+6    	3 building3  	2     	80
+Exercise 12c)Left Join:
+ Merge the two dataframes from Exercise 11a, and return all rows from the left table. Specify the matching key from Exercise 11a.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,all.x=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1      1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 12d)Right Join:
+ Merge the two dataframes from Exercise 11a, and return all rows from the right table. Use the matching key from Exercise 11a to return matching rows from the left table.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,all.y=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+Exercise 12e)Cross Join:
+ Merge the two dataframes from Exercise 11a, into a “Cross Join” with each row of “buildings” matched to each row of “data”. What new column names are created in “buildingStats”?
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+buildingStats<-merge(x=buildings,y=data,all.y=TRUE)
+head(buildingStats)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 13MergingDataframe rows:
+To join two data frames (datasets) vertically, use the rbind function. The two data frames must have the same variables, but they do not have to be in the same order.
+Merge the rows of the following two dataframes:
+ 
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1",
+"building2", "building3"))
+buildings2 <- data.frame(location=c(5, 4, 6), name=c("building5", "building4", "building6"))
+Also, specify the new dataframe as, “allBuidings”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+buildings2<-  data.frame(location=c(1,2,3),name=c("building5","building4","building6"))
+allBuildings<-merge(x=buildings,y=buildings2)
+allBuildings
+Output:
+> allBuildings
+[1] location name	
+<0 rows> (or 0-length row.names)
+Exercise 14
+Create a new dataframe, buildings3, that has variables not found in the previous dataframes.
+ 
+buildings3 <- data.frame(location=c(7, 8, 9), name=c("building7", "building8", "building9"), startEfficiency=c(75,87,91))
+Create a new buildings3 without the extra variables.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1","building2", "building3"))
+buildings2 <- data.frame(location=c(5, 4, 6), name=c("building5", "building4", "building6"))
+allBuildings<-merge.data.frame(buildings,buildings2)
+buildings3 <- data.frame(location=c(7, 8, 9), name=c("building7", "building8", "building9"), startEfficiency=c(75,87,91))
+newbuildings3<-merge(allBuildings,buildings3)
+newbuildings3
+Output:
+[1] location    	name       	
+[3] startEfficiency
+<0 rows> (or 0-length row.names)
+ 
+Exercise 15
+Instead of deleting the extra variables from buildings3. append the buildings, and buildings2 with the new variable in buildings3, (from Exercise 14). Set the new data in buildings and buildings2 , (from Exercise 13), to NA.
+ 
+ 
+https://github.com/192124086/ITA0443-R
+Name:L.Uthra
+RegNo:192124086
+SAVEETHA SCHOOL OF ENGINEERING
+SAVEETHA INSTITUTE OF MEDICAL AND TECHNICAL SCIENCES
+ITA 0443 - STATISTICS WITH R PROGRAMMING FOR REAL TIME PROBLEM
+DAY 2 – LAB EXERCISES
+IMPLEMENTATION OF VECTOR RECYCLING, APPLY FAMILY & RECURSION
+ 
+1. Demonstrate Vector Recycling in R.
+Program:
+v1<-c(1,2,3,4)
+v2<-c(2,3)
+print(v1+v2)
+Output:
+> print(v1+v2)
+[1] 3 5 5 7
+2. Demonstrate the usage of apply function in R
+Program:
+matrix1<- matrix(C<-(1:10),nrow=3, ncol=10)
+matrix1
+print("mean across columns:")
+apply( matrix1, 2, mean)
+Output:
+> apply( matrix1, 2, mean)
+[1] 2.000000 5.000000 8.000000
+[4] 4.333333 4.000000 7.000000
+[7] 6.666667 3.000000 6.000000
+[10] 9.000000
+3. Demonstrate the usage of lapply function in R
+Program:
+data <- data.frame(a = c(2,6,2),b = c(2, 6, 2),c = c(2, 6, 2))
+print(data)
+print(lapply(data,sum))
+Output:
+> print(data)
+  a b c
+1 2 2 2
+2 6 6 6
+3 2 2 2
+$a
+[1] 10
+ 
+$b
+[1] 10
+ 
+$c
+[1] 10
+4. Demonstrate the usage of sapply function in R
+Program:
+data <- data.frame(a = c(2, 4, 2),b = c(2, 4, 2),c = c(2, 4, 2))
+print(data)
+print(sapply(data,sum))
+Output:
+> print(data)
+  a b c
+1 2 2 2
+2 4 4 4
+3 2 2 2
+> print(sapply(data,sum))
+a b c
+8 8 8
+5. Demonstrate the usage of tapply function in R
+Program:
+vec<- data.frame(a = c(1,2,3),b = c(4, 5, 6),c = c(7,8,9))
+print(vec)
+print(tapply(vec$c,vec$a,mean))
+Output:
+> print(vec)
+  a b c
+1 1 4 7
+2 2 5 8
+3 3 6 9
+> print(tapply(vec$c,vec$a,mean))
+1 2 3
+7 8 9
+6. Demonstrate the usage of mapply function in R
+Program:
+v1 <- c(2,5,6,3,9)
+v2 <- c(1,4,3,2,5)
+print(mapply(max, v1, v2))
+Output:
+> print(mapply(max, v1, v2))
+[1] 2 5 6 3 9
+CREATION AND MANIPULATION OF DATAFRAMES IN R
+ 
+Exercise 1
+Consider two vectors: x=seq(1,43,along.with=Id)
+y=seq(-20,0,along.with=Id)
+Create a data frame ‘df’ as shown below.
+>df
+Id Letter x y
+1 1 a 1.000000 -20.000000
+2 1 b 4.818182 -18.181818
+3 1 c 8.636364 -16.363636
+4 2 a 12.454545 -14.545455
+5 2 b 16.272727 -12.727273
+6 2 c 20.090909 -10.909091
+7 3 a 23.909091 -9.090909
+8 3 b 27.727273 -7.272727
+9 3 c 31.545455 -5.454545
+10 4 a 35.363636 -3.636364
+11 4 b 39.181818 -1.818182
+12 4 c 43.000000 0.000000
+Program:
+Id<-c(1,1,1,2,2,2,3,3,3,4,4,4)
+x=seq(1,43,along.with=Id)
+y=seq(-20,0,along.with=Id)
+Letter=c("a","b","c","a","b","c","a","b","c","a","b","c")
+df<-data.frame(Id,Letter,x,y)
+df
+Exercise 2
+Using the data frame ‘df’ in Exercise1, Construct the following data frame. Id x.ay.ax.by.bx.cy.c 1 1 1.00000 -20.000000 4.818182 -18.181818 8.636364 -16.363636 4 2 12.45455 -14.545455 16.272727 -12.727273 20.090909 -10.909091 7 3 23.90909 -9.090909 27.727273 -7.272727 31.545455 -5.454545 10 4 35.36364 -3.636364 39.181818 -1.818182 43.000000 0.000000
+Program:
+ 
+Exercise 3
+Create two data frame df1 and df2:
+ 
+> df1
+Id Age
+1  1 14
+2  2 12
+3  3 15
+4  4 10
+> df2
+Id Sex Code
+1  1 F a
+2  2 M b
+3  3 M c
+4  4 F d
+ 
+From df1 and df2 create M:
+ 
+>M
+Id Age Sex Code
+1  1 14 F a
+2  2 12 M b
+3  3 15 M c 4 4 10 F d
+Program:
+id<-c(1,2,3,4)
+age<-c(14,12,15,10)
+sex<-c('F','M','M','F')
+code<-c("a",'b','c','d')
+df1<-data.frame(id,age)
+df2<-data.frame(id,sex,code)
+df1
+df2
+m<-merge.data.frame(df1,df2)
+m
+Output:
+id age sex code
+1  1  14   F	a
+2  2  12   M	b
+3  3  15   M	c
+4  4  10   F	d
+Exercise 4
+Create a data frame df3:
+ 
+> df3 id2 score 1 4 100
+2  3 98
+3  2 94
+4  1 99
+ 
+From M (used in Exercise-3) and df3 create N:
+ 
+Id Age Sex Code score
+1  1 14 F a 99
+2  2 12 M b 94
+3  3 15 M c 98 4 4 10 F d 100
+Program:
+id<-c(1,2,3,4)
+age<-c(14,12,15,10)
+sex<-c('F','M','M','F')
+code<-c("a",'b','c','d')
+id2<-c(4,3,2,1)
+scores<-c(100,98,94,99)
+df1<-data.frame(id,age)
+df2<-data.frame(id,sex,code)
+df3<-data.frame(id2,scores)
+df3
+m<-merge.data.frame(df1,df2)
+m
+m$score=rev(scores)
+n<-m
+print(n)
+Output:
+  id age sex code score
+1  1  14   F	a	99
+2  2  12   M	b	94
+3  3  15   M	c	98
+4  4  10   F	d   100
+ 
+Exercise 5
+Consider the previous one data frame N:
+1) Remove the variables Sex and Code
+ 2) From N, create a data frame:
+ 
+values ind
+1 	1 Id
+2 	2 Id
+3 	3 Id
+4 	4 Id
+5 	14 Age
+6 	12 Age
+7 	15 Age
+8 	10 Age
+9 	99 score
+10  94 score
+11  98 score
+12  100 score
+Program:
+library(reshape)
+id=c(1:4)
+age=c(14,12,15,10)
+sex=c("F","M","M","F")
+code=c("a","b","c","d")
+df1=data.frame(id,age)
+df2=data.frame(id,sex,code)
+df2=merge(df1,df2)
+score=c(100,98,94,99)
+id=c(4:1)
+df3=data.frame(id,score)
+df3=merge(df2,df3)
+df3$sex=NULL
+df3$code=NULL
+print(melt.data.frame(df3))
+Output:
+   variable value
+1    	id 	1
+2    	id 	2
+3    	id 	3
+4    	id 	4
+5   	age	14
+6   	age	12
+7   	age	15
+8   	age	10
+9 	score	99
+10	score	94
+11	score	98
+12	score   100
+ 
+Exercise 6
+For this exercise, we’ll use the (built-in) dataset trees.
+a)  Make sure the object is a data frame, if not change it to a data frame.
+b)  Create a new data frame A:
+ 
+>A
+Girth Height Volume
+mean_tree 13.24839 76 30.17097
+min_tree 8.30000 63 10.20000
+max_tree 20.60000 87 77.00000
+sum_tree 410.70000 2356 935.30000
+Program:
+df<-trees
+mean_tree=apply(df,2,mean)
+min_tree=apply(df,2,min)
+max_tree=apply(df,2,max)
+sum_tree=apply(df,2,sum)
+A<-data.frame(mean_tree,min_tree,max_tree,sum_tree)
+B<-data.frame(t(A))
+B
+Output:
+          	Girth Height	Volume
+mean_tree  13.24839 	76  30.17097
+min_tree	8.30000 	63  10.20000
+max_tree   20.60000 	87  77.00000
+sum_tree  410.70000   2356 935.30000
+ 
+Exercise 7
+Consider the data frame A:
+1)Order the entire data frame by the first column.
+2)Rename the row names as follows: mean, min, max, tree
+Program:
+df<-trees
+mean_tree=apply(df,2,mean)
+min_tree=apply(df,2,min)
+max_tree=apply(df,2,max)
+sum_tree=apply(df,2,sum)
+A<-data.frame(mean_tree,min_tree,max_tree,sum_tree)
+B<-data.frame(t(A))
+B
+row.names(B)<-c("mean","min","max","sum")
+B
+Output:
+  Girth Height	Volume
+mean  13.24839 	76  30.17097
+min	8.30000 	63  10.20000
+max   20.60000 	87  77.00000
+sum  410.70000   2356 935.30000
+ 
+Exercise 8
+Create an empty data frame with column types:
+>df
+IntsLogicals Doubles Characters
+(or 0-length row.names)
+Program:
+df1 <- data.frame(Doubles=double(),
+              	Integers=integer(),
+              	Factors=factor(),
+              	Logicals=logical(),
+              	Characters=character(),
+              	stringsAsFactors=FALSE)
+print(df1)
+Output:
+[1] Doubles	Integers   Factors  
+[4] Logicals   Characters
+<0 rows> (or 0-length row.names)
+ 
+ 
+Exercise 9
+Create a data frame XY
+ 
+X=c(1,2,3,1,4,5,2)
+Y=c(0,3,2,0,5,9,3)
+> XY
+X Y
+1  1 0
+2  2 3
+3  3 2
+4  1 0
+5  4 5
+6  5 9
+7  2 3
+ 
+1)    look at duplicated elements using a provided R function.
+2)    keep only the unique lines on XY using a provided R function.
+Program:
+x=c(1,2,3,1,4,5,2)
+y=c(0,3,2,0,5,9,3)
+df=data.frame(x,y)
+print("dataframe :")
+print(df)
+print("unique :")
+print(unique(df))
+print("Duplicated :")
+print(duplicated(df))
+Output:
+[1] "unique :"
+> print(unique(df))
+  x y
+1 1 0
+2 2 3
+3 3 2
+5 4 5
+6 5 9
+> print("Duplicated :")
+[1] "Duplicated :"
+> print(duplicated(df))
+[1] FALSE FALSE FALSE  TRUE FALSE FALSE
+[7]  TRUE
+ 
+Exercise 10
+Use the (built-in) dataset Titanic.
+a)  Make sure the object is a data frame, if not change it to a data frame.
+b)  Define a data frame with value 1st in Class variable, and value NO in Survived variable and variables Sex, Age and Freq.
+ 
+Sex Age Freq
+1 Male Child 0
+5 Female Child 0
+9 Male Adult 118
+13 Female Adult 4
+Program:
+a=subset(data.frame(Titanic), subset = Class=='1st' & Survived=='No',select=c(Sex,Age,Freq))
+print(a)
+Output:
+	Sex   Age Freq
+1	Male Child	0
+5  Female Child	0
+9	Male Adult  118
+13 Female Adult	4
+ 
+MERGING DATAFRAMES
+Exercise 11 a)
+Create the following dataframes to merge:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+The dataframes, buildingsand datahave a common key variable called, “location”.
+Use the merge() function to merge the two dataframes by “location”, into a new dataframe,“buildingStats”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+buildings
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+buildingStats<-merge.data.frame(buildings,data,by="location")
+buildingStats
+Output:
+location      name survey efficiency
+1        1 building1  	1     	51
+2        1 building1  	2     	58
+3        2 building2  	1     	64
+4        2 building2  	2      	7
+5        3 building3  	1     	70
+6        3 building3  	2     	80
+Exercise 11 b)
+Give the dataframes different key variable names:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1","building2", "building3"))
+data <- data.frame(survey=c(1,1,1,2,2,2), LocationID=c(1,2,3,2,3,1), efficiency=c(51,64,70,71,80,58))
+The dataframes, buildings and data  have corresponding variables called, location, and LocationID. Use the merge() function to merge the columns of the two dataframes by the corresponding variables.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),LocationID=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+z<-merge.data.frame(buildings,data,by="location")
+z
+Output:
+Error in fix.by(by.y, y) : 'by' must specify a uniquely valid column
+ 
+DIFFERENT TYPES OF MERGE IN R
+Exercise 12a)InnerJoin:
+The R merge() function automatically joins the frames by common variable names. In that case, demonstrate how you would perform the merge in Exercise 11a without specifying the key variable.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+z<-merge(buildings,data)
+z
+Output:
+  location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2      2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 12b)OuterJoin:
+Merge the two dataframes from Exercise 11a. Use the “all=” parameter in the merge() function to return all records from both tables. Also, merge with the key variable, “location”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,by="location",all=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3      1     	70
+6    	3 building3  	2     	80
+Exercise 12c)Left Join:
+ Merge the two dataframes from Exercise 11a, and return all rows from the left table. Specify the matching key from Exercise 11a.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,all.x=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1      1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 12d)Right Join:
+ Merge the two dataframes from Exercise 11a, and return all rows from the right table. Use the matching key from Exercise 11a to return matching rows from the left table.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+merge(x=buildings,y=data,all.y=TRUE)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+Exercise 12e)Cross Join:
+ Merge the two dataframes from Exercise 11a, into a “Cross Join” with each row of “buildings” matched to each row of “data”. What new column names are created in “buildingStats”?
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+data <-  data.frame(survey=c(1,1,1,2,2,2),location=c(1,2,3,2,3,1),efficiency=c(51,64,70,7,80,58))
+buildingStats<-merge(x=buildings,y=data,all.y=TRUE)
+head(buildingStats)
+Output:
+location  	name survey efficiency
+1    	1 building1  	1     	51
+2    	1 building1  	2     	58
+3    	2 building2  	1     	64
+4    	2 building2  	2      	7
+5    	3 building3  	1     	70
+6    	3 building3  	2     	80
+ 
+Exercise 13MergingDataframe rows:
+To join two data frames (datasets) vertically, use the rbind function. The two data frames must have the same variables, but they do not have to be in the same order.
+Merge the rows of the following two dataframes:
+ 
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1",
+"building2", "building3"))
+buildings2 <- data.frame(location=c(5, 4, 6), name=c("building5", "building4", "building6"))
+Also, specify the new dataframe as, “allBuidings”.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1", "building2","building3"))
+buildings2<-  data.frame(location=c(1,2,3),name=c("building5","building4","building6"))
+allBuildings<-merge(x=buildings,y=buildings2)
+allBuildings
+Output:
+> allBuildings
+[1] location name	
+<0 rows> (or 0-length row.names)
+Exercise 14
+Create a new dataframe, buildings3, that has variables not found in the previous dataframes.
+ 
+buildings3 <- data.frame(location=c(7, 8, 9), name=c("building7", "building8", "building9"), startEfficiency=c(75,87,91))
+Create a new buildings3 without the extra variables.
+Program:
+buildings<- data.frame(location=c(1, 2, 3), name=c("building1","building2", "building3"))
+buildings2 <- data.frame(location=c(5, 4, 6), name=c("building5", "building4", "building6"))
+allBuildings<-merge.data.frame(buildings,buildings2)
+buildings3 <- data.frame(location=c(7, 8, 9), name=c("building7", "building8", "building9"), startEfficiency=c(75,87,91))
+newbuildings3<-merge(allBuildings,buildings3)
+newbuildings3
+Output:
+[1] location    	name       	
+[3] startEfficiency
+<0 rows> (or 0-length row.names)
+ 
+Exercise 15
+Instead of deleting the extra variables from buildings3. append the buildings, and buildings2 with the new variable in buildings3, (from Exercise 14). Set the new data in buildings and buildings2 , (from Exercise 13), to NA.
+ 
+ 
+

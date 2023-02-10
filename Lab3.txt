@@ -1,0 +1,308 @@
+UNIVARIATE ANALYSIS IN R - MEASURES OF CENTRAL TENDENCY
+Exercise:
+I. ARITHMETIC MEAN
+a) Write suitable R code to compute the average of the following values.
+12,7,3,4.2,18,2,54,-21,8,-5
+Program:
+values<-c(12,7,3,4.2,18,2,54,-21,8,-5)
+mean(values)
+Output:
+> mean(values)
+[1] 8.22
+b) Compute the mean after applying the trim option and removing 3 values from each
+end.
+Program:
+values<-c(12,7,3,4.2,18,2,54,-21,8,-5)
+mean(values,trim=0.3)
+Output:
+> mean(values,trim=0.3)
+[1] 5.55
+c) Compute the mean of the following vector .
+(12,7,3,4.2,18,2,54,-21,8,-5,NA)
+#If there are missing values, then the mean function returns NA.
+# Find mean dropping NA values.
+#To drop the missing values from the calculation use na.rm = TRUE
+Program:
+values<-c(12,7,3,4.2,18,2,54,-21,8,-5,NA)
+mean(values)
+mean(values,na.rm=TRUE)
+Output:
+> mean(values)
+[1] NA
+> mean(values,na.rm=TRUE)
+[1] 8.22
+II.MEDIAN
+Write suitable R code to compute the median of the following values.
+12,7,3,4.2,18,2,54,-21,8,-5\
+Program:
+values<-c(12,7,3,4.2,18,2,54,-21,8,-5)
+median(values)
+Output:
+> median(values)
+[1] 5.6
+III. MODE
+Calculate the mode for the following numeric as well as character data set in R.
+(2,1,2,3,1,2,3,4,1,5,5,3,2,3) , ("o","it","the","it","it")
+Program:
+values<-c(2,1,2,3,1,2,3,4,1,5,5,3,2,3)
+mode_num<-names(which.max(table(values)))
+mode_num
+value<-c("o","it","the","it","it")
+mode_char<-names(which.max(table(value)))
+mode_char
+Output:
+> mode_num
+[1] "2"
+> value<-c("o","it","the","it","it")
+> mode_char<-names(which.max(table(value)))
+> mode_char
+[1] "it"
+
+UNIVARIATE ANALYSIS IN R -  MEASURES OF  DISPERSION
+Exercise: 1 
+Download mpg dataset which contains Fuel economy data from 1999 and 2008 for 38 popular models of car from the URL given below.
+https://vincentarelbundock.github.io/Rdatasets/datasets.html
+Answer the following queries
+
+Find the car which gives maximum city miles per gallon 
+Find the cars which gives minimum disp in compact and subcompact class 
+Program:
+# Download the mpg dataset
+url <- "https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2/mpg.csv"
+mpg <- read.csv(url)
+
+# Find the car which gives maximum city miles per gallon
+max_city_mpg <- which.max(mpg$cty)
+car_max_city_mpg <- mpg$manufacturer[max_city_mpg]
+cat("The cars which gives maximum city miles per gallon is:", car_max_city_mpg)
+
+# Find the cars which gives minimum disp in compact and subcompact class
+compact_class <- mpg[mpg$class == "compact", ]
+min_disp_compact_class <- which.min(compact_class$displ)
+car_min_disp_compact_class <- compact_class$manufacturer[min_disp_compact_class]
+cat("The cars which gives minimum disp in compact class is:", car_min_disp_compact_class)
+
+subcompact_class <- mpg[mpg$class == "subcompact", ]
+min_disp_subcompact_class <- which.min(subcompact_class$displ)
+car_min_disp_subcompact_class <- subcompact_class$manufacturer[min_disp_subcompact_class]
+cat("The cars which gives minimum disp in subcompact class is:", car_min_disp_subcompact_class)
+
+Output:
+> cat("The car which gives maximum city miles per gallon is:", car_max_city_mpg)
+The car which gives maximum city miles per gallon is: volkswagen
+> cat("The car which gives minimum disp in compact class is:", car_min_disp_compact_class)
+The car which gives minimum disp in compact class is: audi
+> cat("The car which gives minimum disp in subcompact class is:", car_min_disp_subcompact_class)
+The car which gives minimum disp in subcompact class is: honda
+
+Exercise: 2
+
+Use the same dataset as used in Exercise 1 and perform the following queries
+Find the standard deviation of city milles per gallon
+Find the variance of highway milles per gallon
+Program:
+library(ggplot2)
+data("mpg")
+sd_cty<-sd(mpg$cty)
+var_hwy<-var(mpg$hwy)
+cat("Standard deviation of city miles per gallon:",sd_cty,"\n")
+cat("variance of highway miles per gallon",var_hwy)
+output:
+> cat("Standard deviation of city miles per gallon:",sd_cty,"\n")
+Standard deviation of city miles per gallon: 4.255946 
+> cat("variance of highway miles per gallon",var_hwy)
+variance of highway miles per gallon 35.45778
+Exercise 3
+Use the same dataset and perform the following queries
+Find the range of the disp in the data set mpg
+Find the Quartile of the disp in the data set mpg
+Find the IQR of the disp column in the data set mpg
+Program:
+library(ggplot2)
+data("mpg")
+disp_range<-range(mpg$disp)
+disp_quantile<-quantile(mpg$disp)
+disp_IQR<-IQR(mpg$disp)
+cat("Range of the sidp column:",disp_range,"\n")
+cat("Quartile of the disp column:",disp_quantile,"\n")
+cat("IQR of the disp column:",disp_IQR)
+Output:
+> cat("Range of the sidp column:",disp_range,"\n")
+Range of the sidp column: Inf -Inf 
+> cat("Quartile of the disp column:",disp_quantile,"\n")
+Quartile of the disp column: NA NA NA NA NA 
+> cat("IQR of the disp column:",disp_IQR)
+IQR of the disp column: NA
+
+Exercise 4
+#Install Library
+
+
+library(e1071)
+
+Find the skewness of city miles per mileage in the data set mpg ?
+Use qplot function and display the graph for the city miles per mileage column
+program:
+library(e1071)
+skew_cty<-skewness(mpg$cty)
+cat("Skewness of city miles per gallon:",skew_cty,"\n")
+Output:
+> cat("Skewness of city miles per gallon:",skew_cty,"\n")
+Skewness of city miles per gallon: 0.7863773
+
+Find the kurtosis of city miles per mileage in the data set mpg
+Use qplot function and display the graph for the city miles per mileage column
+program:
+library(e1071)
+kurt_cty<-kurtosis(mpg$ctya)
+cat("Kurtosis of city gallon:",kurt_cty)
+Output:
+> cat("Kurtosis of city gallon:",kurt_cty)
+Kurtosis of city gallon: NaN
+BIVARIATEANALYSIS IN R -COVARIANCE,CORRELATION,CROSSTAB
+Exercise: 1 
+  Reference   Status Gender  TestNewOrFollowUp
+1       KRXH Accepted Female Test1           New
+2       KRPT Accepted   Male Test1           New
+3       FHRA Rejected   Male Test2           New
+4       CZKK Accepted Female Test3           New
+5       CQTN Rejected Female Test1           New
+6       PZXW Accepted Female Test4     Follow-up
+7       SZRZ Rejected   Male Test4           New
+8       RMZE Rejected Female Test2           New
+9       STNX Accepted Female Test3           New
+10      TMDW Accepted Female Test1           New
+
+Load the dataset and Create a data frame and name it as dataframe1
+Load the function for crosstab 
+xtabs(~colname , data=Data frame name )
+Program:
+dataframe1 <- data.frame(Reference = c("KRXH", "KRPT", "FHRA", "CZKK", "CQTN", "PZXW", "SZRZ", "RMZE", "STNX", "TMDW"),
+                         Status = c("Accepted", "Accepted", "Rejected", "Accepted", "Rejected", "Accepted", "Rejected", "Rejected", "Accepted", "Accepted"),
+                         Gender = c("Female", "Male", "Male", "Female", "Female", "Female", "Male", "Female", "Female", "Female"),
+                         Test = c("Test1","Test1","Test2","Test3","Test1","Test4","Test4","Test2","Test3","Test1")
+                         NewOrFollowUp = c("New", "New", "New", "New", "New", "Follow-up", "New", "New", "New", "New"))
+
+
+library(tidyr)
+xtabs(~Status + Gender, data = dataframe1)
+
+
+
+Exercise: 2
+Use Two Categorical Variables and Discover the relationships within a dataset
+Next, using the xtabs() function, apply two variables from “dataframe1 “, to create a table delineating the relationship between the “Reference” category, and the “Status” category.
+Save the file in the name of dataframe2
+Program:
+dataframe2<-xtabs(~Reference+Status,data=dataframe1
+dataframe2
+Exercise: 3
+Use the same data frame using three Categorical Variables create a Multi-Dimensional Table
+Apply three variables from “dataframe1” to create a Multi-Dimensional Cross-Tabulation of “Status“, “Gender“, and “Test“.
+Program:
+xtabs(~Status+Gender+Test,data=dataframe1)
+Exercise: 4
+Row Percentages
+The R package “tigerstats” is required for the next two exercises.
+1) Create an xtabs() formula that cross-tabulates “Status“, and “Test“.
+2) Enclose the xtabs() formula in the tigerstats function, “rowPerc()” to display row percentages for “Status” by “Test“.
+Program:
+library(tigerstats)
+dataframe1 <- data.frame(Reference = c("KRXH", "KRPT", "FHRA", "CZKK", "CQTN", "PZXW", "SZRZ", "RMZE", "STNX", "TMDW"),
+                         Status = c("Accepted", "Accepted", "Rejected", "Accepted", "Rejected", "Accepted", "Rejected", "Rejected", "Accepted", "Accepted"),
+                         Gender = c("Female", "Male", "Male", "Female", "Female", "Female", "Male", "Female", "Female", "Female"),
+                         Test = c("Test1","Test1","Test2","Test3","Test1","Test4","Test4","Test2","Test3","Test1")
+                         NewOrFollowUp = c("New", "New", "New", "New", "New", "Follow-up", "New", "New", "New", "New"))
+dataframe3<-xtabs(~Status+Test,data=dataframe1)
+rowperc(dataframe3)
+
+Exercise 5
+Column  Percentages
+1) Create an xtabs() formula that cross-tabulates “Status“, and “Test“.
+2) Enclose the xtabs() formula in the tigerstats function, “colPerc()” to display row percentages for “Status” by “Test“.
+Program:
+library(tigerstats)
+dataframe1 <- data.frame(Reference = c("KRXH", "KRPT", "FHRA", "CZKK", "CQTN", "PZXW", "SZRZ", "RMZE", "STNX", "TMDW"),
+                         Status = c("Accepted", "Accepted", "Rejected", "Accepted", "Rejected", "Accepted", "Rejected", "Rejected", "Accepted", "Accepted"),
+                         Gender = c("Female", "Male", "Male", "Female", "Female", "Female", "Male", "Female", "Female", "Female"),
+                         Test = c("Test1","Test1","Test2","Test3","Test1","Test4","Test4","Test2","Test3","Test1")
+                         NewOrFollowUp = c("New", "New", "New", "New", "New", "Follow-up", "New", "New", "New", "New"))
+dataframe3<-xtabs(~Status+Test,data=dataframe1)
+colperc(dataframe3)
+Exercise 6
+Covariance 
+For the Dataframe1 created from exercise 2 calculate the covariance between Refrence column and Status column
+Display the covariance matrix 
+Program:
+library(stats)
+dataframe1 <- data.frame(Reference = c("KRXH", "KRPT", "FHRA", "CZKK", "CQTN", "PZXW", "SZRZ", "RMZE", "STNX", "TMDW"),
+                         Status = c("Accepted", "Accepted", "Rejected", "Accepted", "Rejected", "Accepted", "Rejected", "Rejected", "Accepted", "Accepted"),
+                         Gender = c("Female", "Male", "Male", "Female", "Female", "Female", "Male", "Female", "Female", "Female"),
+                         Test = c("Test1","Test1","Test2","Test3","Test1","Test4","Test4","Test2","Test3","Test1")
+                         NewOrFollowUp = c("New", "New", "New", "New", "New", "Follow-up", "New", "New", "New", "New"))
+status_num<-ifelses(dataframe1$Status=="Accepted",1,0)
+cov(dataframe1$Reference,status_num)
+Exercise 7
+Correlation 
+Find the Correlation between gender and status. what kind of correlation does exist between the two?
+VISUALIZATION IN R
+Write a program for creating a pie-chart in R using the input vector(21,62,10,53). Provide labels for the chart as ‘London’, ‘New York’, ‘Singapore’, ‘Mumbai’. Add a title to the chart as ‘city pie-chart’ and add a legend at the top right corner of the chart.
+         Program:
+         library(ggplot2)
+values<-c(21,62,10,53)
+df<-data.frame(values,labels=c("London","New York","Singapore","Mumbai"))
+ggplot(df, aes(x = "", y = values, fill = labels)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0) +
+  ggtitle("City pie-chart") +
+  xlab("") +
+  ylab("") +
+  guides(fill = guide_legend(title = "", nrow = 2, direction = "horizontal")) +
+  theme(legend.position = c(0.85, 0.9),
+        plot.title = element_text(hjust = 0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        plot.background = element_blank(),
+        legend.key = element_blank(),
+        legend.title = element_text(size = 10))
+       
+
+
+Create a 3D Pie Chart for the dataset “political Knowledge” with suitable labels,colours and a legend at the top right corner of the chart.
+
+Write a program for creating a bar chart using the vectors H=c(7,12,28,3,41) and M=c(“mar”, “apr”, “may”, “jun”, “jul”). Add a title to the chart as “Revenue chart”.
+Program:
+library(ggplot2)
+H<-c(7,12,28,3,41)
+M<-c("Mar","Apr","May","Jun","Jul")
+df<-data.frame(Month=M,Revenue=H)
+ggplot(df, aes(x = Month, y = Revenue)) +
+  geom_col(fill = "Blue") +
+  ggtitle("Revenue Chart") +
+  xlab("Month") +
+  ylab("Revenue") +
+  theme(plot.title = element_text(hjust = 0.5))
+Output:
+
+
+ Make a histogram for the “AirPassengers“dataset, start at 100 on the x-axis, and from values 200 to 700, make the bins 200 wide
+Program:
+library(ggplot2)
+data("AirPassengers")
+ggplot(data = AirPassengers, aes(x = AirPassengers)) +
+  geom_histogram(binwidth = 200, color = "orange", fill = "blue") +
+  scale_x_continuous(limits = c(100, 700), breaks = seq(100, 700, 200)) +
+  ggtitle("AirPassengers Histogram") +
+  xlab("Passengers") +
+  ylab("Frequency") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+Create a Boxplot graph for the relation between "mpg"(miles per galloon) and "cyl"(number of Cylinders) for the dataset "mtcars" available in R Environment.
+               Program:
+                boxplot(mtcars$mpg,ylab="Miles Per Gallon(MPG)",xlab=”No.of.Cylinders”,col=”Purple”)
+	Output:
+
+
+
